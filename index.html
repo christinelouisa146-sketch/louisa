@@ -1,0 +1,2019 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Malware Awareness | Cyber Safe</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root {
+    /* ORIGINAL DARK THEME - UNCHANGED */
+    --dark: #08111f;
+    --card: #122239;
+    --green: #00e5a8;
+    --muted: #a8b6c9;
+    --text: #ffffff;
+    --navbar: #0d1929;
+    --section: #0c1929;
+    --info: #192e43;
+    --border: #294057;
+    --footer: #050c16;
+}
+
+/* LIGHT THEME - MATCHES THE ORIGINAL DESIGN */
+
+body.light-mode {
+    --dark: #f3f7fb;
+    --card: #ffffff;
+    --green: #008f70;
+    --muted: #536477;
+    --text: #152438;
+    --navbar: #ffffff;
+    --section: #e9f0f6;
+    --info: #edf3f8;
+    --border: #cbd7e2;
+    --footer: #dce6ef;
+}
+
+body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    transition: background .3s, color .3s;
+}
+
+.navbar {
+    background: var(--navbar);
+    transition: background .3s;
+}
+
+.navbar-brand {
+    color: var(--green) !important;
+    font-weight: bold;
+}
+
+.nav-link {
+    color: var(--text) !important;
+}
+
+.nav-link:hover {
+    color: var(--green) !important;
+}
+
+.hero {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    background:
+        radial-gradient(circle at 80%, #174c4a, transparent 40%),
+        linear-gradient(130deg, #08111f, #10253a);
+    padding: 90px 0;
+}
+
+body.light-mode .hero {
+    background:
+        radial-gradient(circle at 80%, #c2eee3, transparent 40%),
+        linear-gradient(130deg, #f3f7fb, #dcebe9);
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+}
+
+.green {
+    color: var(--green);
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.subtitle {
+    color: var(--muted);
+}
+
+.section-alt {
+    background: var(--section);
+}
+
+.malware-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    height: 100%;
+    transition: .3s;
+}
+
+.malware-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--green);
+    box-shadow: 0 10px 30px #00e5a822;
+}
+
+.malware-icon {
+    font-size: 60px;
+}
+
+.btn-green {
+    background: var(--green);
+    color: #071521;
+    font-weight: bold;
+    border: 0;
+}
+
+.btn-green:hover {
+    background: #00bd8b;
+    color: #071521;
+}
+
+.btn-outline-green {
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+
+.btn-outline-green:hover {
+    background: var(--green);
+    color: #071521;
+}
+
+.modal-content {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border);
+}
+
+.info-box {
+    background: var(--info);
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.info-box h6 {
+    color: var(--green);
+}
+
+.info-box p,
+.info-box li {
+    color: var(--muted);
+}
+
+/* THEME BUTTON */
+
+#themeToggle {
+    border: 1px solid var(--green);
+    color: var(--green);
+    background: transparent;
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-weight: bold;
+}
+
+#themeToggle:hover {
+    background: var(--green);
+    color: #071521;
+}
+
+/* SEARCH BAR */
+
+.search-input {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 14px;
+    border-radius: 10px;
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-input:focus {
+    background: var(--card);
+    color: var(--text);
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px #00e5a822;
+}
+
+/* SIMULATOR */
+
+.simulator-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.email-box {
+    background: var(--info);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.email-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.email-body {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.simulation-feedback {
+    display: none;
+    padding: 18px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.correct-feedback {
+    background: #123c32;
+    border: 1px solid #00e5a8;
+    color: white;
+}
+
+.wrong-feedback {
+    background: #472323;
+    border: 1px solid #ff6868;
+    color: white;
+}
+
+.progress {
+    background: var(--border);
+    height: 10px;
+}
+
+.progress-bar {
+    background: var(--green);
+}
+
+/* GLOSSARY */
+
+.glossary-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+}
+
+.glossary-card h5 {
+    color: var(--green);
+}
+
+.glossary-card p {
+    color: var(--muted);
+}
+
+.glossary-card, .timeline-item {
+    cursor: pointer;
+    transition: .3s;
+}
+
+.glossary-card:hover, .glossary-card:focus,
+.timeline-item:hover, .timeline-item:focus {
+    border-color: var(--green);
+    box-shadow: 0 10px 30px #00e5a822;
+    outline: none;
+}
+
+.click-hint {
+    color: var(--green);
+    font-size: .85rem;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+/* INTERACTIVE CHECKLIST */
+
+.checklist-progress {
+    background: var(--info);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.protection-percent {
+    color: var(--green);
+    font-size: 1.25rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--info);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.checklist-item:hover {
+    border-color: var(--green);
+    transform: translateY(-2px);
+}
+
+.checklist-item .form-check-input {
+    flex: 0 0 auto;
+    margin-top: 4px;
+    width: 1.15rem;
+    height: 1.15rem;
+    cursor: pointer;
+    accent-color: var(--green);
+}
+
+.checklist-item .form-check-input:checked + .form-check-label {
+    color: var(--green);
+    text-decoration: line-through;
+    opacity: .85;
+}
+
+.checklist-item .form-check-label {
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+/* TIMELINE */
+
+.timeline {
+    max-width: 900px;
+    margin: auto;
+}
+
+.timeline-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: .3s;
+}
+
+.timeline-item:hover {
+    transform: translateX(6px);
+    border-color: var(--green);
+}
+
+.timeline-year {
+    color: var(--green);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.timeline-item p {
+    color: var(--muted);
+}
+
+/* CHECKLIST */
+
+.checklist-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.checklist-box li {
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+footer {
+    background: var(--footer);
+    padding: 30px;
+    color: var(--muted);
+}
+
+/* VIDEO EXPERIENCE */
+.video-section {
+  background:
+    radial-gradient(circle at 12% 20%, #123b48 0, transparent 32%),
+    radial-gradient(circle at 90% 80%, #183b38 0, transparent 30%),
+    #0a1727;
+}
+.video-shell {
+  background: linear-gradient(145deg, #142b43, #0d1c2e);
+  border: 1px solid #294057;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 55px #0005;
+}
+.video-screen {
+  background: #02070d;
+  position: relative;
+}
+.video-screen iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+.video-pick {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 15px;
+  text-align: left;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid #294057;
+  border-radius: 14px;
+  transition: .25s ease;
+}
+.video-pick:hover, .video-pick.active {
+  transform: translateX(4px);
+  border-color: var(--green);
+  background: var(--info);
+  box-shadow: 0 8px 25px #00e5a81a;
+}
+.video-pick .play-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #071521;
+  background: var(--green);
+  font-size: 18px;
+}
+.video-pick small { color: var(--muted); display: block; }
+.video-tag {
+  display: inline-block;
+  color: var(--green);
+  border: 1px solid #00e5a855;
+  border-radius: 50px;
+  padding: 5px 11px;
+  font-size: .75rem;
+  letter-spacing: .08em;
+}
+.video-note {
+  color: var(--muted);
+  background: var(--info);
+  border-left: 3px solid var(--green);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.video-pick:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+
+/* ADDED EDUCATIONAL IMAGES */
+.content-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.timeline-image {
+  width: 100%;
+  max-height: 230px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 12px 0 18px;
+  border: 1px solid var(--border);
+}
+.about-image-wrap { height: 100%; }
+.about-image-wrap img { min-height: 260px; }
+.glossary-card { cursor: pointer; }
+
+
+/* Malware cards open a visual detail panel when clicked. */
+.malware-click-card { cursor: pointer; }
+.malware-click-card:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
+.malware-detail-image { width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border); }
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav class="navbar navbar-expand-lg sticky-top">
+<div class="container">
+
+<a class="navbar-brand" href="#home">CYBER SAFE.</a>
+
+<button class="navbar-toggler" type="button"
+data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="nav">
+
+<ul class="navbar-nav ms-auto align-items-lg-center">
+
+<li class="nav-item">
+<a class="nav-link" href="#home">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#about">About</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#types">Malware Types</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#simulator">Simulator</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#videos">Videos</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#password-checker">Password Checker</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#timeline">Timeline</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#prevention">Prevention</a>
+</li>
+
+<li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+<button id="themeToggle" type="button"
+onclick="toggleTheme()">
+☀️ Light Mode
+</button>
+</li>
+
+</ul>
+</div>
+</div>
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero" id="home">
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<p class="green fw-bold">CYBERSECURITY AWARENESS</p>
+
+<h1>
+UNDERSTAND
+<span class="green">MALWARE.</span>
+</h1>
+
+<p class="subtitle fs-5">
+Explore different types of malware, learn from real-world
+cyberattacks, and discover how to protect your digital world.
+</p>
+
+<a href="#types" class="btn btn-green btn-lg mt-3">
+Explore Malware →
+</a>
+
+</div>
+
+<div class="col-lg-4 text-center">
+
+<div style="font-size:150px">🛡️</div>
+
+<h4 class="green">STAY PROTECTED</h4>
+
+<p class="subtitle">Think before you click.</p>
+
+</div>
+</div>
+</div>
+</header>
+
+
+<!-- ABOUT -->
+
+<section class="section" id="about">
+<div class="container">
+
+<div class="text-center mb-5">
+<h2>What is <span class="green">Malware?</span></h2>
+<p class="subtitle">Understanding malicious software</p>
+</div>
+
+<div class="row g-4 align-items-center">
+<div class="col-lg-6">
+  <div class="malware-card h-100">
+    <h3 class="green">💻 Meaning of Malware</h3>
+    <p class="subtitle mt-3">
+    Malware is short for malicious software. It refers to
+    programs or code designed to damage, disrupt, spy on,
+    or gain unauthorized access to computers, networks,
+    and mobile devices without the user's consent.
+    </p>
+  </div>
+</div>
+<div class="col-lg-6 about-image-wrap">
+  <img class="content-image" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85" alt="Abstract digital cybersecurity network illustration" loading="lazy">
+</div>
+</div>
+</div>
+</section>
+
+
+<!-- MALWARE TYPES -->
+
+<section class="section section-alt" id="types">
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h2>Types of <span class="green">Malware</span></h2>
+
+<p class="subtitle">Explore the four common types of malware below.</p>
+</div>
+
+<div class="row g-4" id="malwareList">
+
+<div class="col-md-6 col-lg-3 malware-item"
+data-keywords="virus files replicate attach infection">
+<div class="malware-card text-center malware-click-card" tabindex="0" role="button" aria-label="Open malware details">
+
+<div class="malware-icon">🦠</div>
+<h4 class="green">Virus</h4>
+
+<p class="subtitle">
+Malware that attaches itself to files and replicates.
+</p>
+
+<button class="btn btn-green"
+data-bs-toggle="modal" data-bs-target="#virusModal">
+Learn More →
+</button>
+
+</div>
+</div>
+
+<div class="col-md-6 col-lg-3 malware-item"
+data-keywords="worm network spread automatic bandwidth">
+<div class="malware-card text-center malware-click-card" tabindex="0" role="button" aria-label="Open malware details">
+
+<div class="malware-icon">🐛</div>
+<h4 class="green">Worm</h4>
+
+<p class="subtitle">
+Malware that automatically spreads across networks.
+</p>
+
+<button class="btn btn-green"
+data-bs-toggle="modal" data-bs-target="#wormModal">
+Learn More →
+</button>
+
+</div>
+</div>
+
+<div class="col-md-6 col-lg-3 malware-item"
+data-keywords="trojan disguise fake software download">
+<div class="malware-card text-center malware-click-card" tabindex="0" role="button" aria-label="Open malware details">
+
+<div class="malware-icon">🐴</div>
+<h4 class="green">Trojan</h4>
+
+<p class="subtitle">
+Malware disguised as legitimate software.
+</p>
+
+<button class="btn btn-green"
+data-bs-toggle="modal" data-bs-target="#trojanModal">
+Learn More →
+</button>
+
+</div>
+</div>
+
+<div class="col-md-6 col-lg-3 malware-item"
+data-keywords="ransomware encrypt files payment locked">
+<div class="malware-card text-center malware-click-card" tabindex="0" role="button" aria-label="Open malware details">
+
+<div class="malware-icon">🔒</div>
+<h4 class="green">Ransomware</h4>
+
+<p class="subtitle">
+Malware that encrypts files and demands payment.
+</p>
+
+<button class="btn btn-green"
+data-bs-toggle="modal" data-bs-target="#ransomModal">
+Learn More →
+</button>
+
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- VIRUS MODAL -->
+
+<div class="modal fade" id="virusModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+
+<div class="modal-header">
+<h3 class="green">🦠 Computer Virus</h3>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<img class="malware-detail-image" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85" alt="Abstract computer code representing a computer virus" loading="lazy">
+
+<h5 class="green">What is a Virus?</h5>
+
+<p>
+A computer virus is malware that attaches itself to legitimate
+files or programs and replicates by inserting its code into
+other programs.
+</p>
+
+<div class="info-box">
+<h6>How does it spread?</h6>
+<p>
+Through deceptive emails, suspicious links, infected downloads,
+and unsecured networks.
+</p>
+</div>
+
+<div class="info-box">
+<h6>What damage can it cause?</h6>
+<ul>
+<li>Steal sensitive personal data.</li>
+<li>Delete or damage important files.</li>
+<li>Reduce computer performance.</li>
+<li>Spread infection to other systems.</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h6>How to prevent it</h6>
+<ul>
+<li>Enable automatic software updates.</li>
+<li>Avoid suspicious links and downloads.</li>
+<li>Use reliable antivirus software.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- WORM MODAL -->
+
+<div class="modal fade" id="wormModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+
+<div class="modal-header">
+<h3 class="green">🐛 Computer Worm</h3>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<img class="malware-detail-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85" alt="Computer network hardware representing a spreading worm" loading="lazy">
+
+<h5 class="green">What is a Worm?</h5>
+
+<p>
+A computer worm is standalone malware that automatically
+replicates and spreads across computer networks without
+attaching itself to an existing program.
+</p>
+
+<div class="info-box">
+<h6>How does it spread?</h6>
+<p>
+By exploiting software vulnerabilities, malicious email
+attachments, and infected USB drives.
+</p>
+</div>
+
+<div class="info-box">
+<h6>What damage can it cause?</h6>
+<ul>
+<li>Consumes network bandwidth.</li>
+<li>Slows down internet speeds.</li>
+<li>Steals or deletes files.</li>
+<li>Creates security backdoors.</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h6>How to prevent it</h6>
+<ul>
+<li>Keep operating systems updated.</li>
+<li>Avoid unexpected email attachments.</li>
+<li>Use a firewall and antivirus software.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- TROJAN MODAL -->
+
+<div class="modal fade" id="trojanModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+
+<div class="modal-header">
+<h3 class="green">🐴 Trojan Horse</h3>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<img class="malware-detail-image" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85" alt="Cybersecurity digital network representing a Trojan" loading="lazy">
+
+<h5 class="green">What is a Trojan?</h5>
+
+<p>
+A Trojan horse is malware disguised as legitimate or useful
+software. It tricks users into downloading and installing it.
+</p>
+
+<div class="info-box">
+<h6>How does it spread?</h6>
+<p>
+Through fake applications, games, software downloads,
+and suspicious email attachments.
+</p>
+</div>
+
+<div class="info-box">
+<h6>What damage can it cause?</h6>
+<ul>
+<li>Creates hidden backdoors.</li>
+<li>Steals passwords and banking information.</li>
+<li>Records keystrokes.</li>
+<li>Downloads additional malware.</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h6>How to prevent it</h6>
+<ul>
+<li>Download applications from trusted sources.</li>
+<li>Do not open suspicious documents.</li>
+<li>Scan new downloads with antivirus software.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- RANSOMWARE MODAL -->
+
+<div class="modal fade" id="ransomModal" tabindex="-1">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal-content">
+
+<div class="modal-header">
+<h3 class="green">🔒 Ransomware</h3>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+
+<img class="malware-detail-image" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=85" alt="Digital security lock representing ransomware" loading="lazy">
+
+<h5 class="green">What is Ransomware?</h5>
+
+<p>
+Ransomware is malware that locks a victim's device or encrypts
+their files, holding the data hostage until a payment is made.
+</p>
+
+<div class="info-box">
+<h6>How does it spread?</h6>
+<p>
+Through phishing emails, software vulnerabilities,
+compromised accounts, and other malware infections.
+</p>
+</div>
+
+<div class="info-box">
+<h6>What damage can it cause?</h6>
+<ul>
+<li>Encrypts important files.</li>
+<li>Steals sensitive information.</li>
+<li>Disrupts business operations.</li>
+<li>Can prevent access to important services.</li>
+</ul>
+</div>
+
+<div class="info-box">
+<h6>How to prevent it</h6>
+<ul>
+<li>Enable multi-factor authentication.</li>
+<li>Maintain regular backups.</li>
+<li>Install software updates.</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- PHISHING / THREAT SIMULATOR -->
+
+<section class="section" id="simulator">
+<div class="container">
+
+<div class="text-center mb-5">
+
+<p class="green fw-bold">INTERACTIVE LEARNING</p>
+
+<h2>Phishing & <span class="green">Threat Simulator</span></h2>
+
+<p class="subtitle">
+Review each example and decide whether you should trust or block it.
+</p>
+
+</div>
+
+<div class="simulator-card mx-auto" style="max-width:850px">
+
+<div class="d-flex justify-content-between mb-3">
+<span class="green fw-bold" id="scenarioNumber">Scenario 1 of 4</span>
+<span class="subtitle" id="scoreDisplay">Score: 0</span>
+</div>
+
+<div class="progress mb-4">
+<div class="progress-bar" id="simProgress" style="width:25%"></div>
+</div>
+
+<h4 id="scenarioTitle">Suspicious Email</h4>
+
+<div class="email-box" id="emailBox">
+
+<div class="email-header">
+<p class="mb-1"><strong>From:</strong> <span id="sender"></span></p>
+<p class="mb-1"><strong>Subject:</strong> <span id="subject"></span></p>
+</div>
+
+<div class="email-body" id="message"></div>
+
+</div>
+
+<p class="subtitle">What would you do with this message?</p>
+
+<div class="d-flex gap-3 flex-wrap">
+
+<button class="btn btn-green btn-lg"
+id="trustButton" onclick="checkAnswer('trust')">
+✓ Trust
+</button>
+
+<button class="btn btn-outline-danger btn-lg"
+id="blockButton" onclick="checkAnswer('block')">
+✕ Block
+</button>
+
+</div>
+
+<div id="feedback" class="simulation-feedback">
+<h5 id="feedbackTitle"></h5>
+<p id="feedbackText" class="mb-0"></p>
+</div>
+
+<button class="btn btn-green mt-4"
+id="nextButton" onclick="nextScenario()" hidden>
+Next Scenario →
+</button>
+
+<div id="simResult" class="text-center mt-4" hidden>
+
+<h3 class="green">Simulation Completed!</h3>
+
+<h2 id="finalScore"></h2>
+
+<p id="resultMessage" class="subtitle"></p>
+
+<button class="btn btn-green" onclick="restartSimulation()">
+Try Again
+</button>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- CYBER ATTACK CINEMA: added video section -->
+<section class="section video-section" id="videos">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="video-tag">WATCH • LEARN • STAY SAFE</span>
+      <h2 class="mt-3">CYBER ATTACK <span class="green">CINEMA.</span></h2>
+      <p class="subtitle">Real-world explainers and short animations that bring cyber threats to life.</p>
+    </div>
+
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-8">
+        <div class="video-shell">
+          <div class="video-screen">
+            <iframe
+              id="featuredCyberVideo"
+              src="https://www.youtube-nocookie.com/embed/CcJ1FAwDHdI?rel=0"
+              title="NISC CyberSense - Ransomware"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="p-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+              <span class="video-tag" id="videoCategory">RANSOMWARE</span>
+              <span class="subtitle small">Select a video to play</span>
+            </div>
+            <h3 class="green mt-3 mb-2" id="videoTitle">Ransomware: Your Files Held Hostage</h3>
+            <p class="subtitle mb-0" id="videoDescription">
+              See how ransomware can lock files and disrupt access to important information.
+            </p>
+          </div>
+        </div>
+        <div class="video-note mt-3">
+          <strong class="green">While you watch:</strong>
+          Look for the warning signs. How did the threat get in, what did it affect,
+          and what could have stopped it?
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <h4 class="green mb-3">Choose your video <span class="subtitle small">/ 03</span></h4>
+
+        <div class="d-grid gap-3">
+          <button type="button" class="video-pick active"
+            data-video-id="CcJ1FAwDHdI"
+            data-title="Ransomware: Your Files Held Hostage"
+            data-category="RANSOMWARE"
+            data-description="A short CyberSense animation showing how ransomware threatens files and devices.">
+            <span class="play-icon">▶</span>
+            <span><strong>Ransomware Attack</strong><small>Animated explainer • NISC CyberSense</small></span>
+          </button>
+
+          <button type="button" class="video-pick"
+            data-video-id="D_yAYhjNE-0"
+            data-title="Phishing & Ransomware"
+            data-category="PHISHING"
+            data-description="Learn how deceptive messages can lead to dangerous downloads and ransomware incidents.">
+            <span class="play-icon">▶</span>
+            <span><strong>Phishing & Ransomware</strong><small>Security awareness • National Cybersecurity Alliance</small></span>
+          </button>
+
+          <button type="button" class="video-pick"
+            data-video-id="UK5r9-glfrc"
+            data-title="The Malware You Must Combat"
+            data-category="MALWARE BASICS"
+            data-description="A short educational animation introducing malware and why safe online habits matter.">
+            <span class="play-icon">▶</span>
+            <span><strong>Malware Explained</strong><small>Educational animation • UNODC resource</small></span>
+          </button>
+        </div>
+
+        <p class="subtitle small mt-3 mb-0">
+          If a video cannot be embedded by your browser or network, use the
+          <a href="https://www.youtube.com/watch?v=CcJ1FAwDHdI" target="_blank" rel="noopener" class="green">open on YouTube</a>
+          link from the player.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-3 mt-4">
+      <div class="col-md-4">
+        <div class="malware-card">
+          <div class="malware-icon">🎭</div>
+          <h5 class="green">Spot the disguise</h5>
+          <p class="subtitle mb-0">Trojans pretend to be useful or trustworthy programs.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="malware-card">
+          <div class="malware-icon">🕸️</div>
+          <h5 class="green">Watch it spread</h5>
+          <p class="subtitle mb-0">Worms can copy themselves and move across networks automatically.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="malware-card">
+          <div class="malware-icon">🔐</div>
+          <h5 class="green">Protect your data</h5>
+          <p class="subtitle mb-0">Updates, backups, strong passwords, and MFA reduce risk.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PASSWORD STRENGTH CHECKER -->
+<section class="section section-alt" id="password-checker">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="green fw-bold">CHECK YOUR PASSWORD HABITS</p>
+      <h2>Password Strength <span class="green">Checker</span></h2>
+      <p class="subtitle">Try a sample password to see how difficult it may be to guess.</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-7">
+        <div class="p-4 p-md-5 rounded-4" style="background:var(--card-bg, #122239); border:1px solid rgba(0,229,168,.25);">
+          <label for="passwordInput" class="form-label fw-bold">Enter a sample password</label>
+          <div class="input-group input-group-lg mb-3">
+            <input type="password" class="form-control" id="passwordInput" placeholder="Type a sample password" autocomplete="off" spellcheck="false" aria-describedby="passwordPrivacy">
+            <button class="btn btn-outline-success" type="button" id="togglePassword" aria-pressed="false">Show</button>
+          </div>
+          <p class="small subtitle mb-4" id="passwordPrivacy">Privacy note: This checker runs in your browser. Your input is not sent anywhere or saved.</p>
+
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <strong>Password strength</strong>
+            <strong id="strengthLabel" class="green">Not checked</strong>
+          </div>
+          <div class="progress mb-3" style="height:14px; background:rgba(255,255,255,.12);" role="progressbar" aria-label="Password strength" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="strengthProgress">
+            <div class="progress-bar" id="strengthBar" style="width:0%; background:#64748b;"></div>
+          </div>
+          <p id="strengthMessage" class="subtitle mb-4" aria-live="polite">Enter a sample password to begin.</p>
+
+          <div class="rounded-3 p-3 mb-4" style="background:rgba(0,0,0,.12);">
+            <h5 class="green">Suggestions to improve it</h5>
+            <ul class="mb-0" id="passwordTips">
+              <li>Use at least 12 characters.</li>
+              <li>Mix uppercase and lowercase letters, numbers, and symbols.</li>
+              <li>Avoid names, common words, and predictable sequences.</li>
+            </ul>
+          </div>
+          <button type="button" class="btn btn-outline-success" id="clearPassword">Clear password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREAT TIMELINE -->
+
+<section class="section" id="timeline">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<p class="green fw-bold">LEARN FROM HISTORY</p>
+
+<h2>Major Cyberattacks <span class="green">Timeline</span></h2>
+
+<p class="subtitle">
+Explore significant cyberattacks and understand their impact.
+</p>
+
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item" role="button" tabindex="0" data-info-key="iloveyou">
+<div class="timeline-year">2000 — ILOVEYOU</div>
+<img class="timeline-image" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80" alt="Illustration of email and digital communication" loading="lazy">
+<h4 class="mt-2">The Love Letter Worm</h4>
+<p>
+The ILOVEYOU worm spread through email with a message that
+appeared to contain a love letter. When recipients opened its
+attachment, the worm spread to other contacts and affected
+millions of computers worldwide.
+</p>
+<p class="green mb-0">Threat: Email worm</p>
+</div>
+
+<div class="timeline-item" role="button" tabindex="0" data-info-key="stuxnet">
+<div class="timeline-year">2010 — Stuxnet</div>
+<img class="timeline-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80" alt="Illustration of computer hardware and industrial technology" loading="lazy">
+<h4 class="mt-2">The Stuxnet Attack</h4>
+<p>
+Stuxnet was a sophisticated computer worm that targeted
+industrial control systems. It demonstrated how cyberattacks
+could affect physical infrastructure.
+</p>
+<p class="green mb-0">Threat: Computer worm / industrial cyberattack</p>
+</div>
+
+<div class="timeline-item" role="button" tabindex="0" data-info-key="wannacry">
+<div class="timeline-year">2017 — WannaCry</div>
+<img class="timeline-image" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1000&q=80" alt="Illustration representing digital security and ransomware" loading="lazy">
+<h4 class="mt-2">The Global Ransomware Attack</h4>
+<p>
+WannaCry ransomware spread rapidly across vulnerable Windows
+computers. It encrypted files and demanded ransom payments,
+disrupting organizations in many countries.
+</p>
+<p class="green mb-0">Threat: Ransomware</p>
+</div>
+
+<div class="timeline-item" role="button" tabindex="0" data-info-key="change">
+<div class="timeline-year">2024 — Change Healthcare</div>
+<img class="timeline-image" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80" alt="Healthcare technology illustration" loading="lazy">
+<h4 class="mt-2">Healthcare Cyberattack</h4>
+<p>
+A ransomware attack against Change Healthcare disrupted
+healthcare payment and prescription services in the United
+States. The incident highlighted the importance of protecting
+sensitive medical information and securing access to systems.
+</p>
+<p class="green mb-0">Threat: Ransomware / data theft</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- PREVENTION -->
+
+<section class="section section-alt" id="prevention">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h2>How to Stay <span class="green">Protected</span></h2>
+
+<p class="subtitle">Six important cybersecurity habits.</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="malware-card">
+<h4 class="green">🔄 Update Software</h4>
+<p class="subtitle">Enable automatic updates and patch security vulnerabilities.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="malware-card">
+<h4 class="green">🔐 Strong Passwords</h4>
+<p class="subtitle">Use strong, unique passwords and multi-factor authentication.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="malware-card">
+<h4 class="green">📩 Avoid Suspicious Links</h4>
+<p class="subtitle">Never open unexpected links or email attachments.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="malware-card">
+<h4 class="green">🛡️ Antivirus</h4>
+<p class="subtitle">Use reliable antivirus and firewall protection.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="malware-card">
+<h4 class="green">💾 Backup Files</h4>
+<p class="subtitle">Keep regular offline backups of important data.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="malware-card">
+<h4 class="green">📱 Trusted Downloads</h4>
+<p class="subtitle">Only download applications from official and trusted sources.</p>
+</div>
+</div>
+
+</div>
+
+
+<!-- INTERACTIVE CYBERSECURITY CHECKLIST -->
+
+<div class="checklist-box mt-5" id="securityChecklist">
+
+  <div class="text-center">
+    <h3 class="green">📋 Cyber Security Checklist</h3>
+    <p class="subtitle">
+      Click each habit after you have completed it. Your progress will update automatically.
+    </p>
+  </div>
+
+  <div class="checklist-progress mt-4">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+      <strong class="green">Your protection progress</strong>
+      <strong id="protectionPercent" class="protection-percent">0% protected</strong>
+    </div>
+    <div class="progress" id="protectionProgress" role="progressbar"
+         aria-label="Cybersecurity checklist completion"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress-bar" id="protectionProgressBar" style="width: 0%"></div>
+    </div>
+    <p class="subtitle small mt-2 mb-0" id="protectionMessage" aria-live="polite">
+      0 of 8 habits completed. Start with one simple step.
+    </p>
+  </div>
+
+  <div class="row mt-4 g-3">
+    <div class="col-md-6">
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkUpdate">
+        <label class="form-check-label" for="checkUpdate">Keep your operating system and apps updated.</label>
+      </div>
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkPasswords">
+        <label class="form-check-label" for="checkPasswords">Use strong and unique passwords.</label>
+      </div>
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkMfa">
+        <label class="form-check-label" for="checkMfa">Enable multi-factor authentication.</label>
+      </div>
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkLinks">
+        <label class="form-check-label" for="checkLinks">Avoid suspicious links and attachments.</label>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkAntivirus">
+        <label class="form-check-label" for="checkAntivirus">Use trusted antivirus and firewall protection.</label>
+      </div>
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkBackup">
+        <label class="form-check-label" for="checkBackup">Back up important files regularly.</label>
+      </div>
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkDownloads">
+        <label class="form-check-label" for="checkDownloads">Download software from official sources.</label>
+      </div>
+      <div class="checklist-item">
+        <input class="form-check-input security-check" type="checkbox" id="checkLock">
+        <label class="form-check-label" for="checkLock">Lock your devices when not in use.</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-outline-green" type="button" onclick="resetSecurityChecklist()">
+      Reset Checklist
+    </button>
+  </div>
+
+  <p class="subtitle small text-center mt-3 mb-0">
+    Note: This percentage represents checklist completion, not a guarantee that your device is secure.
+  </p>
+</div>
+</div>
+</section>
+
+
+<!-- SHARED POPUP FOR GLOSSARY AND TIMELINE -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="display-5 mb-2" id="infoIcon">🔐</div>
+          <h3 class="green mb-1" id="infoTitle">Information</h3>
+          <p class="subtitle mb-0" id="infoSubtitle"></p>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="infoDescription"></p>
+        <div class="info-box"><h6>Key details</h6><p id="infoDetails" class="mb-0"></p></div>
+        <div class="info-box"><h6>Impact or importance</h6><p id="infoImpact" class="mb-0"></p></div>
+        <div class="info-box"><h6>What can we learn?</h6><p id="infoLesson" class="mb-0"></p></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-green" data-bs-dismiss="modal">Got it</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer class="text-center">
+
+<h5 class="green">CYBER SAFE.</h5>
+
+<p>Malware Awareness and Cybersecurity Education</p>
+
+<p>Presented by: Louisa</p>
+
+<small>© 2026 Malware Awareness</small>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* Make each malware card clickable; the selected type opens its picture and explanation. */
+document.querySelectorAll(".malware-click-card").forEach(function (card, index) {
+  const modalIds = ["virusModal", "wormModal", "trojanModal", "ransomModal"];
+  function openDetails() {
+    const modal = document.getElementById(modalIds[index]);
+    if (modal && window.bootstrap) bootstrap.Modal.getOrCreateInstance(modal).show();
+  }
+  card.addEventListener("click", function (event) {
+    if (event.target.closest("button")) return;
+    openDetails();
+  });
+  card.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openDetails();
+    }
+  });
+});
+
+</script>
+
+<script>
+/* Video selector: switches the featured player without reloading the page. */
+document.addEventListener("DOMContentLoaded", function () {
+  const player = document.getElementById("featuredCyberVideo");
+  const title = document.getElementById("videoTitle");
+  const category = document.getElementById("videoCategory");
+  const description = document.getElementById("videoDescription");
+  const buttons = document.querySelectorAll(".video-pick");
+
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const videoId = button.dataset.videoId;
+      player.src = "https://www.youtube-nocookie.com/embed/" +
+        encodeURIComponent(videoId) + "?rel=0&autoplay=1";
+      player.title = button.dataset.title;
+      title.textContent = button.dataset.title;
+      category.textContent = button.dataset.category;
+      description.textContent = button.dataset.description;
+
+      buttons.forEach(function (item) {
+        item.classList.remove("active");
+        item.setAttribute("aria-pressed", "false");
+      });
+      button.classList.add("active");
+      button.setAttribute("aria-pressed", "true");
+    });
+  });
+
+  buttons.forEach(function (button) {
+    button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
+  });
+});
+</script>
+
+<script>
+
+/* DARK / LIGHT MODE */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("light-mode");
+
+    const isLight = document.body.classList.contains("light-mode");
+
+    const button = document.getElementById("themeToggle");
+
+    if (isLight) {
+        button.textContent = "🌙 Dark Mode";
+        localStorage.setItem("cyberTheme", "light");
+    } else {
+        button.textContent = "☀️ Light Mode";
+        localStorage.setItem("cyberTheme", "dark");
+    }
+
+}
+
+/* RESTORE THEME */
+
+function loadTheme() {
+
+    const savedTheme = localStorage.getItem("cyberTheme");
+
+    if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+        document.getElementById("themeToggle").textContent =
+        "🌙 Dark Mode";
+    }
+
+}
+
+loadTheme();
+
+
+
+/* PHISHING / THREAT SIMULATOR */
+
+const scenarios = [
+
+{
+title: "Suspicious Email",
+sender: "security-alert@bank-example.com",
+subject: "URGENT! Your bank account will be blocked",
+message: "Dear Customer,<br><br>Your bank account will be suspended today. Click the link below immediately to verify your password and personal information.<br><br>Verify your account now: suspicious-example.com<br><br>Thank you,<br>Security Department",
+answer: "block",
+explanation: "This is a phishing email. Warning signs include urgent language, a suspicious sender address, and a link asking for sensitive information."
+},
+
+{
+title: "Unexpected Prize Message",
+sender: "+00 123 456 789",
+subject: "Congratulations! You won a prize!",
+message: "Congratulations! You have won a free smartphone. You only need to pay a small delivery fee. Click this unknown link and enter your bank details to claim your prize.",
+answer: "block",
+explanation: "This is suspicious because it offers an unexpected prize and asks for payment and banking information through an unknown link."
+},
+
+{
+title: "Software Update Notification",
+sender: "updates@trusted-software.example",
+subject: "Software security update available",
+message: "Hello,<br><br>A new security update is available for your installed software. Open the application's official update feature to check for the latest version.<br><br>Do not share your password with anyone.<br><br>Thank you,<br>Software Support",
+answer: "trust",
+explanation: "This example represents a safer notification. It directs you to the application's own update feature instead of asking you to open an unknown attachment or provide your password. Always verify the sender independently."
+},
+
+{
+title: "Unknown File Download",
+sender: "unknown.sender@example.com",
+subject: "Invoice_Important.exe",
+message: "Hello,<br><br>Please open the attached executable file immediately to view your invoice. You must enable the file to continue.<br><br>Regards,<br>Unknown Sender",
+answer: "block",
+explanation: "This is dangerous because it comes from an unknown sender and asks you to run an unexpected executable file. Do not open it."
+}
+
+];
+
+let currentScenario = 0;
+let score = 0;
+let answered = false;
+
+function loadScenario() {
+
+    const scenario = scenarios[currentScenario];
+
+    document.getElementById("scenarioNumber").textContent =
+    "Scenario " + (currentScenario + 1) + " of " + scenarios.length;
+
+    document.getElementById("scoreDisplay").textContent =
+    "Score: " + score;
+
+    document.getElementById("simProgress").style.width =
+    ((currentScenario + 1) / scenarios.length * 100) + "%";
+
+    document.getElementById("scenarioTitle").textContent =
+    scenario.title;
+
+    document.getElementById("sender").textContent =
+    scenario.sender;
+
+    document.getElementById("subject").textContent =
+    scenario.subject;
+
+    document.getElementById("message").innerHTML =
+    scenario.message;
+
+    document.getElementById("feedback").style.display = "none";
+
+    document.getElementById("nextButton").hidden = true;
+
+    document.getElementById("trustButton").disabled = false;
+    document.getElementById("blockButton").disabled = false;
+
+    document.getElementById("simResult").hidden = true;
+
+    answered = false;
+
+}
+
+function checkAnswer(choice) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const scenario = scenarios[currentScenario];
+
+    const feedback = document.getElementById("feedback");
+
+    const feedbackTitle =
+    document.getElementById("feedbackTitle");
+
+    const feedbackText =
+    document.getElementById("feedbackText");
+
+    if (choice === scenario.answer) {
+
+        score++;
+
+        feedback.className =
+        "simulation-feedback correct-feedback";
+
+        feedbackTitle.textContent = "✓ Correct Decision!";
+
+    } else {
+
+        feedback.className =
+        "simulation-feedback wrong-feedback";
+
+        feedbackTitle.textContent = "✕ Not Quite Right!";
+
+    }
+
+    feedbackText.textContent = scenario.explanation;
+
+    feedback.style.display = "block";
+
+    document.getElementById("trustButton").disabled = true;
+    document.getElementById("blockButton").disabled = true;
+
+    document.getElementById("scoreDisplay").textContent =
+    "Score: " + score;
+
+    if (currentScenario === scenarios.length - 1) {
+        document.getElementById("nextButton").textContent =
+        "See Results";
+    } else {
+        document.getElementById("nextButton").textContent =
+        "Next Scenario →";
+    }
+
+    document.getElementById("nextButton").hidden = false;
+
+}
+
+function nextScenario() {
+
+    currentScenario++;
+
+    if (currentScenario < scenarios.length) {
+        loadScenario();
+    } else {
+        showResults();
+    }
+
+}
+
+function showResults() {
+
+    document.getElementById("scenarioNumber").textContent =
+    "Completed";
+
+    document.getElementById("simProgress").style.width = "100%";
+
+    document.getElementById("scenarioTitle").textContent =
+    "Your Results";
+
+    document.getElementById("emailBox").hidden = true;
+
+    document.getElementById("trustButton").hidden = true;
+    document.getElementById("blockButton").hidden = true;
+
+    document.getElementById("feedback").style.display = "none";
+
+    document.getElementById("nextButton").hidden = true;
+
+    document.getElementById("simResult").hidden = false;
+
+    document.getElementById("finalScore").textContent =
+    score + " / " + scenarios.length;
+
+    let message = "";
+
+    if (score === scenarios.length) {
+        message = "Excellent! You identified every example correctly. Keep practicing safe online habits.";
+    } else if (score >= 2) {
+        message = "Good job! You understand several warning signs. Keep learning to improve your cybersecurity awareness.";
+    } else {
+        message = "Keep practicing! Remember to check senders, links, attachments, and requests for personal information.";
+    }
+
+    document.getElementById("resultMessage").textContent = message;
+
+}
+
+function restartSimulation() {
+
+    currentScenario = 0;
+    score = 0;
+
+    document.getElementById("emailBox").hidden = false;
+
+    document.getElementById("trustButton").hidden = false;
+    document.getElementById("blockButton").hidden = false;
+
+    loadScenario();
+
+}
+
+loadScenario();
+
+
+
+
+/* INTERACTIVE CHECKLIST PROGRESS */
+
+const securityChecks = Array.from(document.querySelectorAll(".security-check"));
+
+function updateSecurityProgress() {
+    const completed = securityChecks.filter(check => check.checked).length;
+    const total = securityChecks.length;
+    const percentage = Math.round((completed / total) * 100);
+
+    document.getElementById("protectionPercent").textContent =
+        percentage + "% protected";
+
+    document.getElementById("protectionProgressBar").style.width =
+        percentage + "%";
+
+    document.getElementById("protectionProgress").setAttribute(
+        "aria-valuenow", percentage
+    );
+
+    let message;
+    if (percentage === 100) {
+        message = "All 8 habits completed! Excellent work — you have covered every item on this checklist.";
+    } else if (percentage >= 75) {
+        message = completed + " of " + total + " habits completed. Great progress — finish the remaining steps.";
+    } else if (percentage >= 50) {
+        message = completed + " of " + total + " habits completed. You are halfway there — keep going!";
+    } else if (percentage >= 25) {
+        message = completed + " of " + total + " habits completed. Good start — every habit adds another layer of protection.";
+    } else {
+        message = completed + " of " + total + " habits completed. Start with one simple step to improve your security.";
+    }
+
+    document.getElementById("protectionMessage").textContent = message;
+
+    try {
+        localStorage.setItem("cyberChecklist", JSON.stringify(
+            securityChecks.map(check => check.checked)
+        ));
+    } catch (error) {
+        // The checklist still works if browser storage is unavailable.
+    }
+}
+
+function resetSecurityChecklist() {
+    securityChecks.forEach(check => check.checked = false);
+    updateSecurityProgress();
+}
+
+function loadSecurityChecklist() {
+    try {
+        const saved = JSON.parse(localStorage.getItem("cyberChecklist") || "null");
+        if (Array.isArray(saved)) {
+            securityChecks.forEach((check, index) => {
+                check.checked = saved[index] === true;
+            });
+        }
+    } catch (error) {
+        // Ignore unavailable or invalid saved checklist data.
+    }
+
+    securityChecks.forEach(check => {
+        check.addEventListener("change", updateSecurityProgress);
+    });
+
+    updateSecurityProgress();
+}
+
+loadSecurityChecklist();
+
+
+/* CLICKABLE GLOSSARY AND CYBERATTACK TIMELINE */
+
+const infoData = {
+    mfa: ["🔐", "Multi-Factor Authentication (MFA)", "A stronger way to verify identity",
+        "MFA requires two or more different forms of verification before accessing an account.",
+        "Factors can include something you know (a password), something you have (a phone or security key), or something you are (a biometric feature).",
+        "If a password is stolen, an additional verification step can make account access harder for an attacker.",
+        "Enable MFA on important accounts, especially email, banking, and social media."],
+    phishing: ["🎣", "Phishing", "Deception used to steal information",
+        "Phishing is a cyberattack in which criminals impersonate trusted people or organizations to trick users into revealing information or opening malicious links.",
+        "Warning signs include urgent language, unexpected attachments, unusual sender addresses, and mismatched links.",
+        "Victims may lose account access, expose personal information, or install malware.",
+        "Check the sender and destination carefully. Visit official websites directly instead of following unexpected links."],
+    zero: ["⚠️", "Zero-Day Vulnerability", "A flaw that may be exploited before a fix is available",
+        "A zero-day vulnerability is a software security flaw exploited before the developer has released a patch or fix.",
+        "Attackers may take advantage of the flaw while users and developers have limited time to respond.",
+        "Affected systems may be exposed to unauthorized access, data theft, or disruption.",
+        "Install security updates promptly and use security tools that can detect suspicious activity."],
+    encryption: ["🔒", "Encryption", "Protecting information using coded data",
+        "Encryption converts readable information into coded data using a cryptographic process.",
+        "The information can be read again by someone with the appropriate decryption key.",
+        "Encryption helps protect information if data is intercepted or stored somewhere not fully trusted.",
+        "Use trusted encrypted services and protect the passwords or keys used to access encrypted information."],
+    payload: ["💣", "Payload", "The part of malware that performs its intended action",
+        "A payload is the component of malware or an attack that carries out the harmful activity.",
+        "It may steal information, encrypt files, delete data, or disrupt a system.",
+        "The payload is often responsible for the direct damage experienced by a victim.",
+        "Avoid suspicious files and links, keep software updated, and use reputable security protection."],
+    firewall: ["🧱", "Firewall", "A barrier that controls network traffic",
+        "A firewall monitors and controls incoming and outgoing network traffic according to security rules.",
+        "Firewalls can be implemented in software, hardware, or both.",
+        "A properly configured firewall can help block unwanted network connections.",
+        "Keep the firewall enabled and use appropriate settings for the network."],
+    spyware: ["🕵️", "Spyware", "Software that secretly monitors activity",
+        "Spyware is malicious software that secretly observes user activity and collects information without permission.",
+        "It may collect browsing activity, login information, or other sensitive data.",
+        "Spyware can violate privacy and expose personal or financial information.",
+        "Install software only from trusted sources, review app permissions, and keep devices updated."],
+    ransomware: ["🔐", "Ransomware", "Malware that locks data or systems and demands payment",
+        "Ransomware can encrypt files or lock a device so the victim cannot access information normally.",
+        "It commonly reaches victims through phishing, compromised accounts, or exploited software vulnerabilities.",
+        "It can interrupt activities and business operations, and may also involve theft of sensitive data.",
+        "Maintain protected backups, update systems, use MFA, and be cautious with unexpected links and attachments."],
+    malware: ["🦠", "Malware", "A general term for malicious software",
+        "Malware is software or code designed to damage, disrupt, spy on, or gain unauthorized access to computers, networks, and mobile devices.",
+        "Viruses, worms, Trojans, ransomware, and spyware are examples of malware.",
+        "Malware can affect privacy, data, device performance, and service availability.",
+        "Use layered protection: updates, strong authentication, backups, trusted downloads, and careful online behavior."],
+    trojan: ["🐴", "Trojan Horse", "Malware disguised as legitimate software",
+        "A Trojan horse tricks users into believing malicious software is a useful or legitimate application or file.",
+        "Unlike a worm, a Trojan does not independently replicate itself. It relies on users being tricked into running it.",
+        "It may create hidden access, steal information, or install additional malicious software.",
+        "Download applications from official sources and avoid unexpected attachments or installers."],
+    worm: ["🐛", "Computer Worm", "Malware that can spread automatically",
+        "A computer worm is standalone malware that can copy itself and spread across computers or networks.",
+        "Worms may exploit software vulnerabilities or use other methods to move between systems.",
+        "Rapid spread can consume network resources and expose many devices to harm.",
+        "Keep operating systems and applications patched, use firewalls, and avoid suspicious files."],
+    botnet: ["🌐", "Botnet", "A network of devices controlled by an attacker",
+        "A botnet is a group of compromised computers or internet-connected devices that an attacker can control remotely.",
+        "Device owners may not realize their devices have been compromised.",
+        "Botnets may be used for spam, denial-of-service attacks, or other malicious activity.",
+        "Change default device passwords, update connected devices, and secure networks."],
+    iloveyou: ["💌", "2000 — ILOVEYOU Worm", "A mass-mailing email worm",
+        "The ILOVEYOU worm spread through an email message that appeared to contain a love letter. Opening its attachment caused it to spread to other contacts.",
+        "It used social engineering and email address books to encourage further openings and spread.",
+        "It affected millions of computers worldwide and demonstrated how quickly a deceptive email attachment could spread malware.",
+        "Be cautious with unexpected attachments, even when a message appears to come from someone you know."],
+    stuxnet: ["🏭", "2010 — Stuxnet", "A worm targeting industrial control systems",
+        "Stuxnet was a sophisticated computer worm that targeted industrial control systems.",
+        "The incident showed that malicious code could be designed to interact with equipment and industrial processes.",
+        "It demonstrated that cyberattacks can affect physical infrastructure, not just ordinary computers.",
+        "Industrial systems need strong access controls, network segmentation, monitoring, and careful security maintenance."],
+    wannacry: ["🔒", "2017 — WannaCry", "A global ransomware outbreak",
+        "WannaCry ransomware spread across vulnerable Windows computers, encrypted files, and demanded ransom payments.",
+        "The outbreak spread rapidly and disrupted organizations in many countries.",
+        "It highlighted the risks of unpatched systems and disrupted organizations and services around the world.",
+        "Apply security updates promptly, maintain reliable backups, and prepare an incident response plan."],
+    change: ["🏥", "2024 — Change Healthcare", "A ransomware attack affecting healthcare services",
+        "A ransomware attack against Change Healthcare disrupted healthcare payment and prescription services in the United States.",
+        "The incident highlighted the importance of protecting sensitive information and securing access to systems.",
+        "Disruption to healthcare-related services showed how cyber incidents can affect organizations, providers, and patients.",
+        "Organizations should use strong authentication, limit access, maintain tested backups, and prepare recovery plans."]
+};
+
+function showInfo(key) {
+    const info = infoData[key];
+    if (!info) return;
+
+    ["infoIcon", "infoTitle", "infoSubtitle", "infoDescription",
+     "infoDetails", "infoImpact", "infoLesson"].forEach((id, index) => {
+        document.getElementById(id).textContent = info[index];
+    });
+
+    bootstrap.Modal.getOrCreateInstance(
+        document.getElementById("infoModal")
+    ).show();
+}
+
+document.querySelectorAll("[data-info-key]").forEach(card => {
+    card.addEventListener("click", () => showInfo(card.dataset.infoKey));
+    card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            showInfo(card.dataset.infoKey);
+        }
+    });
+});
+</script>
+
+
+<script>
+/* PASSWORD STRENGTH CHECKER — evaluates locally and never stores the input. */
+(function () {
+  const input = document.getElementById("passwordInput");
+  if (!input) return;
+  const label = document.getElementById("strengthLabel");
+  const bar = document.getElementById("strengthBar");
+  const progress = document.getElementById("strengthProgress");
+  const message = document.getElementById("strengthMessage");
+  const tips = document.getElementById("passwordTips");
+  const toggle = document.getElementById("togglePassword");
+
+  function evaluatePassword(value) {
+    if (!value) {
+      label.textContent = "Not checked";
+      bar.style.width = "0%";
+      bar.style.background = "#64748b";
+      progress.setAttribute("aria-valuenow", "0");
+      message.textContent = "Enter a sample password to begin.";
+      tips.innerHTML = "<li>Use at least 12 characters.</li><li>Mix uppercase and lowercase letters, numbers, and symbols.</li><li>Avoid names, common words, and predictable sequences.</li>";
+      return;
+    }
+
+    let score = 0;
+    const suggestions = [];
+    if (value.length >= 12) score += 2; else suggestions.push("Use at least 12 characters; longer passphrases are often easier to remember.");
+    if (value.length >= 16) score += 1;
+    if (/[a-z]/.test(value)) score += 1; else suggestions.push("Add lowercase letters.");
+    if (/[A-Z]/.test(value)) score += 1; else suggestions.push("Add uppercase letters.");
+    if (/\d/.test(value)) score += 1; else suggestions.push("Include numbers.");
+    if (/[^A-Za-z0-9]/.test(value)) score += 1; else suggestions.push("Include symbols, such as !, #, or %.");
+    if (/(.)\1{2,}/.test(value)) { score -= 1; suggestions.push("Avoid repeating the same character many times."); }
+    if (/1234|abcd|qwerty|password|letmein|admin/i.test(value)) { score -= 2; suggestions.push("Avoid common words and predictable sequences."); }
+    if (/^(\d+|[a-z]+)$/i.test(value)) { score -= 1; suggestions.push("Avoid using only letters or only numbers."); }
+
+    score = Math.max(0, Math.min(7, score));
+    let strength, percent, color, description;
+    if (score <= 2) { strength = "Weak"; percent = 25; color = "#ef4444"; description = "This password may be easier to guess. Try a longer, less predictable passphrase."; }
+    else if (score <= 4) { strength = "Fair"; percent = 50; color = "#f59e0b"; description = "Some good elements are present, but it could be stronger."; }
+    else if (score <= 5) { strength = "Good"; percent = 75; color = "#22c55e"; description = "This is a good start. A longer unique passphrase can improve it further."; }
+    else { strength = "Strong"; percent = 100; color = "#00e5a8"; description = "Good work. Make sure this password is unique to one account and consider using a password manager."; }
+
+    label.textContent = strength;
+    label.style.color = color;
+    bar.style.width = percent + "%";
+    bar.style.background = color;
+    progress.setAttribute("aria-valuenow", String(percent));
+    message.textContent = description;
+    if (!suggestions.length) suggestions.push("Use this password for only one account.", "Store it in a reputable password manager and enable multi-factor authentication.");
+    tips.innerHTML = suggestions.map(item => "<li></li>").join("");
+    Array.from(tips.children).forEach((li, index) => { li.textContent = suggestions[index]; });
+  }
+
+  input.addEventListener("input", () => evaluatePassword(input.value));
+  toggle.addEventListener("click", function () {
+    const showing = input.type === "text";
+    input.type = showing ? "password" : "text";
+    toggle.textContent = showing ? "Show" : "Hide";
+    toggle.setAttribute("aria-pressed", String(!showing));
+  });
+  document.getElementById("clearPassword").addEventListener("click", function () {
+    input.value = "";
+    input.type = "password";
+    toggle.textContent = "Show";
+    toggle.setAttribute("aria-pressed", "false");
+    evaluatePassword("");
+    input.focus();
+  });
+})();
+</script>
+
+</body>
+</html>
+
